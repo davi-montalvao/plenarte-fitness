@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { signIn } from "next-auth/react";
+import { getSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -29,7 +29,11 @@ export function LoginForm() {
       return;
     }
 
-    router.push("/minha-area");
+    const session = await getSession();
+    const isTeacher =
+      session?.user?.role === "TEACHER" || session?.user?.role === "ADMIN";
+
+    router.push(isTeacher ? "/professora" : "/minha-area");
     router.refresh();
   }
 

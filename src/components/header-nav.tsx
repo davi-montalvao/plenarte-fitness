@@ -16,7 +16,7 @@ export function HeaderNav({ loggedIn, isTeacher }: Props) {
   const sections = [
     { href: "/cursos", label: "Curso" },
     { href: "/#sobre", label: "Sobre" },
-    ...(loggedIn ? [{ href: "/minha-area", label: "Minha área" }] : []),
+    ...(loggedIn && !isTeacher ? [{ href: "/minha-area", label: "Minha área" }] : []),
   ];
 
   return (

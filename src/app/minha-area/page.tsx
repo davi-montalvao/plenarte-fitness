@@ -12,6 +12,9 @@ type Props = {
 export default async function StudentAreaPage({ searchParams }: Props) {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
+  if (session.user.role === "TEACHER" || session.user.role === "ADMIN") {
+    redirect("/professora");
+  }
 
   const params = await searchParams;
 

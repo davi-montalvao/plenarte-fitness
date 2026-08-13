@@ -37,6 +37,8 @@ export default async function CourseDetailPage({ params }: Props) {
     : null;
 
   const owned = purchase?.status === "PAID";
+  const isTeacher =
+    session?.user?.role === "TEACHER" || session?.user?.role === "ADMIN";
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-14">
@@ -49,8 +51,20 @@ export default async function CourseDetailPage({ params }: Props) {
       </p>
       <p className="font-display mt-8 text-3xl">{formatPrice(course.priceCents)}</p>
 
-      <div className="mt-6">
-        {owned ? (
+      <div className="mt-6 flex flex-wrap gap-3">
+        {isTeacher ? (
+          <>
+            <Link href={`/minha-area/cursos/${course.slug}`} className="btn btn-primary">
+              Assistir aulas
+            </Link>
+            <Link
+              href={`/professora/cursos/${course.id}`}
+              className="rounded-full border border-[var(--line)] px-5 py-3 text-sm"
+            >
+              Gerenciar
+            </Link>
+          </>
+        ) : owned ? (
           <Link href={`/minha-area/cursos/${course.slug}`} className="btn btn-primary">
             Ir para as aulas
           </Link>
