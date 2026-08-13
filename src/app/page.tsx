@@ -1,95 +1,98 @@
-import Link from "next/link";
-import Image from "next/image";
-import { PhotoCarousel } from "@/components/photo-carousel";
-import { FadeIn } from "@/components/fade-in";
+import Link from 'next/link';
+import Image from 'next/image';
+import { PhotoCarousel } from '@/components/photo-carousel';
+import { FadeIn } from '@/components/fade-in';
 
 const ticker = [
-  "Movimento",
-  "Força",
-  "Elegância",
-  "Flexibilidade",
-  "Postura",
-  "Bem-estar",
+  'Movimento',
+  'Força',
+  'Elegância',
+  'Flexibilidade',
+  'Postura',
+  'Bem-estar',
 ];
 
 const benefits = [
   {
-    title: "Força",
-    text: "Desenvolvimento e fortalecimento muscular de forma progressiva.",
+    title: 'Força',
+    text: 'Desenvolvimento e fortalecimento muscular de forma progressiva.',
   },
   {
-    title: "Postura",
-    text: "Consciência corporal e alinhamento em cada movimento.",
+    title: 'Postura',
+    text: 'Consciência corporal e alinhamento em cada movimento.',
   },
   {
-    title: "Flexibilidade",
-    text: "Maior mobilidade e amplitude nos movimentos do dia a dia.",
+    title: 'Flexibilidade',
+    text: 'Maior mobilidade e amplitude nos movimentos do dia a dia.',
   },
   {
-    title: "Condicionamento",
-    text: "Uma aula dinâmica que trabalha resistência e energia.",
+    title: 'Condicionamento',
+    text: 'Uma aula dinâmica que trabalha resistência e energia.',
   },
   {
-    title: "Coordenação",
-    text: "Movimentos que estimulam equilíbrio e controle corporal.",
+    title: 'Coordenação',
+    text: 'Movimentos que estimulam equilíbrio e controle corporal.',
   },
   {
-    title: "Bem-estar",
-    text: "Uma experiência que une exercício, música e expressão.",
+    title: 'Bem-estar',
+    text: 'Uma experiência que une exercício, música e expressão.',
   },
 ];
 
 const steps = [
   {
-    n: "01",
-    title: "Aquecimento",
-    text: "Preparação do corpo e ativação muscular para começar em segurança.",
+    n: '01',
+    title: 'Aquecimento',
+    text: 'Preparação do corpo e ativação muscular para começar em segurança.',
   },
   {
-    n: "02",
-    title: "Barra",
-    text: "Exercícios inspirados no ballet para força, postura e controle.",
+    n: '02',
+    title: 'Barra',
+    text: 'Exercícios inspirados no ballet para força, postura e controle.',
   },
   {
-    n: "03",
-    title: "Centro",
-    text: "Movimentos que trabalham equilíbrio, coordenação e estabilidade.",
+    n: '03',
+    title: 'Centro',
+    text: 'Movimentos que trabalham equilíbrio, coordenação e estabilidade.',
   },
   {
-    n: "04",
-    title: "Condicionamento",
-    text: "Sequências dinâmicas para resistência e energia.",
+    n: '04',
+    title: 'Condicionamento',
+    text: 'Sequências dinâmicas para resistência e energia.',
   },
   {
-    n: "05",
-    title: "Alongamento",
-    text: "Desaceleração, mobilidade e relaxamento muscular ao final da aula.",
+    n: '05',
+    title: 'Alongamento',
+    text: 'Desaceleração, mobilidade e relaxamento muscular ao final da aula.',
   },
 ];
 
 const audience = [
   {
-    q: "Nunca fiz ballet?",
-    a: "Sem problema. O curso é pensado para iniciantes, no seu tempo.",
+    q: 'Nunca fiz ballet?',
+    a: 'Sem problema. O curso é pensado para iniciantes, no seu tempo.',
   },
   {
-    q: "Já faço atividade física?",
-    a: "O Ballet Fitness pode complementar a sua rotina de treino.",
+    q: 'Já faço atividade física?',
+    a: 'O Ballet Fitness pode complementar a sua rotina de treino.',
   },
   {
-    q: "Tenho pouca flexibilidade?",
-    a: "A flexibilidade é desenvolvida progressivamente, aula após aula.",
+    q: 'Tenho pouca flexibilidade?',
+    a: 'A flexibilidade é desenvolvida progressivamente, aula após aula.',
   },
   {
-    q: "Preciso ter experiência com ballet?",
-    a: "Não. A modalidade não exige experiência prévia em ballet clássico.",
+    q: 'Preciso ter experiência com ballet?',
+    a: 'Não. A modalidade não exige experiência prévia em ballet clássico.',
   },
 ];
 
 export default function Home() {
   return (
     <div>
-      <FadeIn immediate className="shell grid items-center gap-12 py-16 md:grid-cols-2 md:gap-16 lg:gap-24 lg:py-24">
+      <FadeIn
+        immediate
+        className="shell grid items-center gap-12 py-16 md:grid-cols-2 md:gap-16 lg:gap-24 lg:py-24"
+      >
         <div className="max-w-xl">
           <p className="inline-flex rounded-full border border-[var(--line)] px-3 py-1 text-[0.65rem] tracking-[0.2em] text-[var(--muted)]">
             BALLET FITNESS
@@ -104,8 +107,8 @@ export default function Home() {
             exercícios de força, condicionamento e mobilidade.
           </p>
           <p className="mt-4 max-w-lg text-sm leading-relaxed text-[var(--muted)]">
-            Não precisa de barra de ballet. Em casa, uma cadeira firme, a
-            parede ou só o corpo já bastam.
+            Não precisa de barra de ballet. Em casa, uma cadeira firme, a parede
+            ou só o corpo já bastam.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <Link href="/cursos" className="btn btn-primary">
@@ -121,7 +124,7 @@ export default function Home() {
             className="absolute inset-0 bg-cover bg-center"
             style={{
               backgroundImage:
-                "url(https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80)",
+                'url(https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=1200&q=80)',
             }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--accent)]/35 to-transparent" />
@@ -152,15 +155,17 @@ export default function Home() {
         </p>
         <div className="mt-16 grid gap-12 md:grid-cols-3 md:gap-0">
           {[
-            ["Ballet", "Técnica e elegância"],
-            ["Fitness", "Força e energia"],
-            ["Você", "No centro da experiência"],
+            ['Ballet', 'Técnica e elegância'],
+            ['Fitness', 'Força e energia'],
+            ['Você', 'No centro da experiência'],
           ].map(([title, subtitle], index) => (
             <div
               key={title}
-              className={`px-4 ${index > 0 ? "md:border-l md:border-[var(--line)]" : ""}`}
+              className={`px-4 ${index > 0 ? 'md:border-l md:border-[var(--line)]' : ''}`}
             >
-              <p className="font-display text-3xl text-[var(--accent)]">{title}</p>
+              <p className="font-display text-3xl text-[var(--accent)]">
+                {title}
+              </p>
               <p className="mt-2 kicker">{subtitle}</p>
             </div>
           ))}
@@ -190,15 +195,15 @@ export default function Home() {
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
             {[
-              "Força",
-              "Tonificação muscular",
-              "Flexibilidade",
-              "Equilíbrio",
-              "Coordenação",
-              "Postura",
-              "Mobilidade",
-              "Resistência",
-            ].map((tag) => (
+              'Força',
+              'Tonificação muscular',
+              'Flexibilidade',
+              'Equilíbrio',
+              'Coordenação',
+              'Postura',
+              'Mobilidade',
+              'Resistência',
+            ].map(tag => (
               <span
                 key={tag}
                 className="rounded-full border border-[var(--line)] px-3 py-1 text-sm"
@@ -216,7 +221,7 @@ export default function Home() {
           Seu corpo em movimento. Sua melhor versão.
         </h2>
         <ul className="mt-12 grid gap-6 md:grid-cols-3">
-          {benefits.map((item) => (
+          {benefits.map(item => (
             <li
               key={item.title}
               className="card p-6 transition hover:-translate-y-0.5"
@@ -249,7 +254,7 @@ export default function Home() {
           A estrutura de uma aula de Ballet Fitness.
         </h2>
         <ol className="mt-12 space-y-10 border-l border-[var(--line)] pl-8">
-          {steps.map((step) => (
+          {steps.map(step => (
             <li key={step.n} className="flex gap-5">
               <p className="font-display w-12 shrink-0 text-3xl text-[var(--accent)]/45">
                 {step.n}
@@ -269,7 +274,7 @@ export default function Home() {
           Ballet Fitness é para você?
         </h2>
         <ul className="mt-12 grid gap-6 md:grid-cols-2">
-          {audience.map((item) => (
+          {audience.map(item => (
             <li key={item.q} className="card p-6">
               <h3 className="border-l-2 border-[var(--accent)] pl-3 font-medium">
                 {item.q}
