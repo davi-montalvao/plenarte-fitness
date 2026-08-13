@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { hash } from "bcryptjs";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
+import { getPasswordError } from "@/lib/password";
 
 const schema = z.object({
   name: z.string().min(2),
@@ -16,6 +17,11 @@ export async function POST(request: Request) {
 
     if (!parsed.success) {
       return NextResponse.json({ error: "Dados inválidos" }, { status: 400 });
+    }
+
+    const passwordError = getPasswordError(parsed.data.password);
+    if (passwordError) {
+      return NextResponse.json({ error: passwordError }, { status: 400 });
     }
 
     const exists = await prisma.user.findUnique({

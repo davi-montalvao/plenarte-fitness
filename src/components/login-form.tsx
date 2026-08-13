@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { getSession, signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { PasswordField } from "@/components/password-field";
 
 export function LoginForm() {
   const router = useRouter();
@@ -51,19 +52,12 @@ export function LoginForm() {
           className="field"
         />
       </div>
-      <div>
-        <label className="mb-1 block text-sm" htmlFor="password">
-          Senha
-        </label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          required
-          minLength={6}
-          className="field"
-        />
-      </div>
+      <PasswordField
+        id="password"
+        name="password"
+        label="Senha"
+        autoComplete="current-password"
+      />
       {error && <p className="text-sm text-red-700">{error}</p>}
       <button
         type="submit"

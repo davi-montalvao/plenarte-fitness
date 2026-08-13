@@ -4,22 +4,42 @@ import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { PasswordField } from "@/components/password-field";
+import { getPasswordError, PASSWORD_HINT } from "@/lib/password";
+
+function isValidEmail(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
 
 export function RegisterForm() {
   const router = useRouter();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const passwordError = getPasswordError(password);
+  const passwordsMatch =
+    confirmPassword.length > 0 && password === confirmPassword;
+  const canSubmit =
+    name.trim().length >= 2 &&
+    isValidEmail(email.trim()) &&
+    !passwordError &&
+    passwordsMatch;
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!canSubmit) return;
+
     setLoading(true);
     setError("");
 
-    const form = new FormData(event.currentTarget);
     const payload = {
-      name: String(form.get("name")),
-      email: String(form.get("email")),
-      password: String(form.get("password")),
+      name: name.trim(),
+      email: email.trim(),
+      password,
     };
 
     const res = await fetch("/api/register", {
@@ -64,6 +84,8 @@ export function RegisterForm() {
           type="text"
           required
           minLength={2}
+          value={name}
+          onChange={(event) => setName(event.target.value)}
           className="field"
         />
       </div>
@@ -76,26 +98,42 @@ export function RegisterForm() {
           name="email"
           type="email"
           required
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
           className="field"
         />
       </div>
-      <div>
-        <label className="mb-1 block text-sm" htmlFor="password">
-          Senha
-        </label>
-        <input
+      <div className="space-y-1">
+        <PasswordField
           id="password"
           name="password"
-          type="password"
-          required
-          minLength={6}
-          className="field"
+          label="Senha"
+          autoComplete="new-password"
+          value={password}
+          onChange={setPassword}
         />
+        <p className="text-xs text-[var(--muted)]">{PASSWORD_HINT}</p>
+        {password.length > 0 && passwordError && (
+          <p className="text-sm text-red-700">{passwordError}</p>
+        )}
+      </div>
+      <div className="space-y-1">
+        <PasswordField
+          id="confirmPassword"
+          name="confirmPassword"
+          label="Confirmar senha"
+          autoComplete="new-password"
+          value={confirmPassword}
+          onChange={setConfirmPassword}
+        />
+        {confirmPassword.length > 0 && !passwordsMatch && (
+          <p className="text-sm text-red-700">A senha não está igual</p>
+        )}
       </div>
       {error && <p className="text-sm text-red-700">{error}</p>}
       <button
         type="submit"
-        disabled={loading}
+        disabled={loading || !canSubmit}
         className="btn btn-primary w-full"
       >
         {loading ? "Criando..." : "Criar conta"}
