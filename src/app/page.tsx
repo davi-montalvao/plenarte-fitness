@@ -178,8 +178,11 @@ export default function Home() {
             src="/images/ballet-fitness-movimento.png"
             alt="Mulher em um movimento de ballet fitness, no chão, sem usar barra"
             fill
-            className="object-cover"
+            className="object-cover object-top"
             sizes="(min-width: 768px) 50vw, 100vw"
+            priority
+            loading="eager"
+            fetchPriority="high"
           />
         </div>
         <div>

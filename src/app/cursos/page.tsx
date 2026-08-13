@@ -35,7 +35,7 @@ export default async function CoursesPage() {
                   src={DEFAULT_COVER}
                   alt={course.title}
                   fill
-                  className="object-cover object-[center_22%]"
+                  className="object-cover object-[center_20%]"
                   sizes="(max-width: 768px) 100vw, 36rem"
                 />
               </div>

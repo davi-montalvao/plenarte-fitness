@@ -51,7 +51,7 @@ export default async function CourseDetailPage({ params }: Props) {
           src={DEFAULT_COVER}
           alt={course.title}
           fill
-          className="object-cover object-[center_22%]"
+          className="object-cover object-[center_20%]"
           sizes="(max-width: 768px) 100vw, 42rem"
           priority
         />
