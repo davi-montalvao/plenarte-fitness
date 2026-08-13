@@ -22,13 +22,14 @@ async function main() {
     where: { slug: "ballet-fitness-fundamentos" },
     update: {
       coverUrl: "/images/ballet-fitness-movimento.png",
+      priceCents: 1,
     },
     create: {
       title: "Ballet Fitness — Fundamentos",
       slug: "ballet-fitness-fundamentos",
       description:
         "Treino de ballet fitness para mulheres adultas. Mesma sequência, você ajusta a carga e a intensidade no seu ritmo.",
-      priceCents: 9700,
+      priceCents: 1,
       coverUrl: "/images/ballet-fitness-movimento.png",
       published: true,
       teacherId: teacher.id,

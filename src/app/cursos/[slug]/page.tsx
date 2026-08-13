@@ -46,12 +46,12 @@ export default async function CourseDetailPage({ params }: Props) {
   return (
     <div className="mx-auto max-w-3xl px-4 py-14">
       <p className="kicker">com {course.teacher.name}</p>
-      <div className="relative mt-5 aspect-[16/10] overflow-hidden rounded-2xl">
+      <div className="relative mt-5 aspect-[4/5] overflow-hidden rounded-2xl bg-[var(--accent-soft)] sm:aspect-[5/4]">
         <Image
           src={course.coverUrl || DEFAULT_COVER}
           alt={course.title}
           fill
-          className="object-cover"
+          className="object-cover object-top"
           sizes="(max-width: 768px) 100vw, 48rem"
           priority
         />

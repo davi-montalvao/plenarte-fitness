@@ -59,7 +59,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({
-      checkoutUrl: preference.sandbox_init_point ?? preference.init_point,
+      checkoutUrl: preference.init_point ?? preference.sandbox_init_point,
     });
   } catch (error) {
     console.error(error);

@@ -30,12 +30,12 @@ export default async function CoursesPage() {
         <ul className="mt-10 grid gap-5 md:grid-cols-2">
           {courses.map((course) => (
             <li key={course.id} className="card overflow-hidden p-0 transition hover:-translate-y-0.5">
-              <div className="relative h-48 w-full">
+              <div className="relative aspect-[4/5] w-full bg-[var(--accent-soft)] md:aspect-[5/4]">
                 <Image
                   src={course.coverUrl || DEFAULT_COVER}
                   alt={course.title}
                   fill
-                  className="object-cover"
+                  className="object-cover object-top"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
