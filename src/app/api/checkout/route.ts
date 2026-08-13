@@ -51,7 +51,6 @@ export async function POST(request: Request) {
       purchaseId: purchase.id,
       courseTitle: course.title,
       amountCents: course.priceCents,
-      payerEmail: session.user.email,
     });
 
     await prisma.purchase.update({

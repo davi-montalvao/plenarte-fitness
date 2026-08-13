@@ -13,7 +13,6 @@ export async function createCheckoutPreference(input: {
   purchaseId: string;
   courseTitle: string;
   amountCents: number;
-  payerEmail: string;
 }) {
   const client = getMercadoPagoClient();
   const preference = new Preference(client);
@@ -28,11 +27,9 @@ export async function createCheckoutPreference(input: {
           quantity: 1,
           unit_price: input.amountCents / 100,
           currency_id: "BRL",
+          picture_url: `${appUrl}/images/ballet-fitness-movimento.png`,
         },
       ],
-      payer: {
-        email: input.payerEmail,
-      },
       external_reference: input.purchaseId,
       back_urls: {
         success: `${appUrl}/minha-area?pagamento=sucesso`,
