@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Plenarte Ballet Fitness
 
-## Getting Started
+MVP de cursos online de **ballet fitness** para mulheres adultas.
 
-First, run the development server:
+## O que já tem
+
+- Cadastro / login
+- Catálogo de cursos
+- Compra via Mercado Pago
+- Área da aluna com vídeos (YouTube unlisted)
+- Painel da professora (criar curso e aulas)
+
+## Stack
+
+Next.js · PostgreSQL · Prisma · Auth.js · Mercado Pago
+
+## Setup
+
+1. Crie um banco PostgreSQL local (ou na nuvem).
+
+2. Copie o env:
+
+```bash
+cp .env.example .env
+```
+
+3. Preencha no `.env`:
+
+- `DATABASE_URL`
+- `AUTH_SECRET` (gere com `openssl rand -base64 32`)
+- `MERCADOPAGO_ACCESS_TOKEN` (token de teste primeiro)
+- `NEXT_PUBLIC_APP_URL=http://localhost:3000`
+
+4. Instale e prepare o banco:
+
+```bash
+npm install
+npm run db:setup
+```
+
+5. Rode:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abra [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Conta seed (professora)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Email: `professora@plenarte.com`
+- Senha: `professora123`
 
-## Learn More
+## Fluxo do MVP
 
-To learn more about Next.js, take a look at the following resources:
+1. Professora cria curso e aulas com URL do YouTube unlisted
+2. Aluna se cadastra, compra no Mercado Pago
+3. Webhook marca a compra como paga
+4. Aluna assiste em **Minha área**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Fora do MVP (por enquanto)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Ballet clássico
+- IA / recomendações
+- App mobile
+- Marketplace de várias professoras
 
-## Deploy on Vercel
+## Observação sobre webhook
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Em local, o Mercado Pago precisa alcançar `/api/webhooks/mercadopago`. Use um túnel (ngrok, Cloudflare Tunnel) e coloque essa URL pública em `NEXT_PUBLIC_APP_URL` / `notification_url`.
