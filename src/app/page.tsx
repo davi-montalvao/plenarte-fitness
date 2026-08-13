@@ -175,10 +175,10 @@ export default function Home() {
       <FadeIn className="shell grid items-center gap-12 py-16 md:grid-cols-2 md:gap-16 lg:gap-24 lg:py-24">
         <div className="relative min-h-[420px] overflow-hidden rounded-[2.5rem] rounded-tl-[4rem] rounded-br-[4rem] lg:min-h-[520px]">
           <Image
-            src="/images/ballet-fitness-movimento.png"
+            src="/images/ballet-fitness-home.png"
             alt="Mulher em um movimento de ballet fitness, no chão, sem usar barra"
             fill
-            className="object-cover object-top"
+            className="object-cover object-[center_24%]"
             sizes="(min-width: 768px) 50vw, 100vw"
             priority
             loading="eager"

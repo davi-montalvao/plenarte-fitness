@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-const DEFAULT_COVER = "/images/curso-capa.png";
+const DEFAULT_COVER = "/images/curso-detalhe-v3.png";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -51,8 +51,9 @@ export default async function CourseDetailPage({ params }: Props) {
           src={DEFAULT_COVER}
           alt={course.title}
           fill
-          className="object-cover object-[center_20%]"
+          className="object-cover object-[center_35%]"
           sizes="(max-width: 768px) 100vw, 42rem"
+          quality={95}
           priority
         />
       </div>

@@ -5,7 +5,7 @@ import { formatPrice } from "@/lib/youtube";
 
 export const dynamic = "force-dynamic";
 
-const DEFAULT_COVER = "/images/curso-capa.png";
+const DEFAULT_COVER = "/images/curso-capa-v2.png";
 
 export default async function CoursesPage() {
   const courses = await prisma.course.findMany({
@@ -35,7 +35,7 @@ export default async function CoursesPage() {
                   src={DEFAULT_COVER}
                   alt={course.title}
                   fill
-                  className="object-cover object-[center_20%]"
+                  className="object-cover object-[center_45%]"
                   sizes="(max-width: 768px) 100vw, 36rem"
                 />
               </div>

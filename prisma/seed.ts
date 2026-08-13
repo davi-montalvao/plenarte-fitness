@@ -21,7 +21,7 @@ async function main() {
   const course = await prisma.course.upsert({
     where: { slug: "ballet-fitness-fundamentos" },
     update: {
-      coverUrl: "/images/curso-capa.png",
+      coverUrl: "/images/curso-capa-v2.png",
       priceCents: 100,
     },
     create: {
@@ -30,7 +30,7 @@ async function main() {
       description:
         "Treino de ballet fitness para mulheres adultas. Mesma sequência, você ajusta a carga e a intensidade no seu ritmo.",
       priceCents: 100,
-      coverUrl: "/images/curso-capa.png",
+      coverUrl: "/images/curso-capa-v2.png",
       published: true,
       teacherId: teacher.id,
       lessons: {
