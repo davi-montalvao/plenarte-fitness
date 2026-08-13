@@ -3,12 +3,22 @@ import { hash } from "bcryptjs";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { getPasswordError } from "@/lib/password";
+import type { Role } from "@prisma/client";
 
 const schema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
   password: z.string().min(6),
 });
+
+function resolveRole(email: string): Role {
+  const allowList = (process.env.TEACHER_EMAILS ?? "")
+    .split(",")
+    .map((value) => value.trim().toLowerCase())
+    .filter(Boolean);
+
+  return allowList.includes(email.toLowerCase()) ? "TEACHER" : "STUDENT";
+}
 
 export async function POST(request: Request) {
   try {
@@ -33,13 +43,14 @@ export async function POST(request: Request) {
     }
 
     const passwordHash = await hash(parsed.data.password, 10);
+    const role = resolveRole(parsed.data.email);
 
     await prisma.user.create({
       data: {
         name: parsed.data.name,
         email: parsed.data.email,
         passwordHash,
-        role: "STUDENT",
+        role,
       },
     });
 
