@@ -27,7 +27,7 @@ export async function createCheckoutPreference(input: {
           quantity: 1,
           unit_price: input.amountCents / 100,
           currency_id: "BRL",
-          picture_url: `${appUrl}/images/ballet-fitness-movimento.png`,
+          picture_url: `${appUrl}/images/curso-capa.png`,
         },
       ],
       external_reference: input.purchaseId,

@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
-const DEFAULT_COVER = "/images/ballet-fitness-movimento.png";
+const DEFAULT_COVER = "/images/curso-capa.png";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -44,19 +44,19 @@ export default async function CourseDetailPage({ params }: Props) {
     session?.user?.role === "TEACHER" || session?.user?.role === "ADMIN";
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-14">
+    <div className="mx-auto max-w-2xl px-4 py-14">
       <p className="kicker">com {course.teacher.name}</p>
-      <div className="relative mt-5 aspect-[4/5] overflow-hidden rounded-2xl bg-[var(--accent-soft)] sm:aspect-[5/4]">
+      <div className="relative mt-4 aspect-[16/9] overflow-hidden rounded-2xl bg-[var(--accent-soft)]">
         <Image
-          src={course.coverUrl || DEFAULT_COVER}
+          src={DEFAULT_COVER}
           alt={course.title}
           fill
-          className="object-cover object-top"
-          sizes="(max-width: 768px) 100vw, 48rem"
+          className="object-cover object-[center_22%]"
+          sizes="(max-width: 768px) 100vw, 42rem"
           priority
         />
       </div>
-      <h1 className="font-display mt-6 text-4xl text-[var(--accent)] md:text-5xl">
+      <h1 className="font-display mt-5 text-3xl text-[var(--accent)] md:text-4xl">
         {course.title}
       </h1>
       <p className="mt-5 text-lg leading-relaxed text-[var(--muted)]">

@@ -5,7 +5,7 @@ import { formatPrice } from "@/lib/youtube";
 
 export const dynamic = "force-dynamic";
 
-const DEFAULT_COVER = "/images/ballet-fitness-movimento.png";
+const DEFAULT_COVER = "/images/curso-capa.png";
 
 export default async function CoursesPage() {
   const courses = await prisma.course.findMany({
@@ -27,24 +27,24 @@ export default async function CoursesPage() {
       {courses.length === 0 ? (
         <p className="mt-10 text-[var(--muted)]">Nenhum curso publicado ainda.</p>
       ) : (
-        <ul className="mt-10 grid gap-5 md:grid-cols-2">
+        <ul className="mt-10 grid max-w-xl gap-5">
           {courses.map((course) => (
             <li key={course.id} className="card overflow-hidden p-0 transition hover:-translate-y-0.5">
-              <div className="relative aspect-[4/5] w-full bg-[var(--accent-soft)] md:aspect-[5/4]">
+              <div className="relative aspect-[16/9] w-full overflow-hidden bg-[var(--accent-soft)]">
                 <Image
-                  src={course.coverUrl || DEFAULT_COVER}
+                  src={DEFAULT_COVER}
                   alt={course.title}
                   fill
-                  className="object-cover object-top"
-                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover object-[center_22%]"
+                  sizes="(max-width: 768px) 100vw, 36rem"
                 />
               </div>
-              <div className="p-7">
-                <h2 className="font-display text-2xl">{course.title}</h2>
-                <p className="mt-2 line-clamp-3 text-[var(--muted)]">
+              <div className="p-5 md:p-6">
+                <h2 className="font-display text-xl md:text-2xl">{course.title}</h2>
+                <p className="mt-2 line-clamp-2 text-sm text-[var(--muted)] md:text-base">
                   {course.description}
                 </p>
-                <div className="mt-5 flex items-center justify-between text-sm">
+                <div className="mt-4 flex items-center justify-between text-sm">
                   <span className="text-[var(--muted)]">
                     {course._count.lessons} aula
                     {course._count.lessons === 1 ? "" : "s"} ·{" "}
