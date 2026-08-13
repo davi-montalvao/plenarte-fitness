@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -6,6 +7,8 @@ import { BuyButton } from "@/components/buy-button";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
+
+const DEFAULT_COVER = "/images/ballet-fitness-movimento.png";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -43,7 +46,17 @@ export default async function CourseDetailPage({ params }: Props) {
   return (
     <div className="mx-auto max-w-3xl px-4 py-14">
       <p className="kicker">com {course.teacher.name}</p>
-      <h1 className="font-display mt-3 text-4xl text-[var(--accent)] md:text-5xl">
+      <div className="relative mt-5 aspect-[16/10] overflow-hidden rounded-2xl">
+        <Image
+          src={course.coverUrl || DEFAULT_COVER}
+          alt={course.title}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 48rem"
+          priority
+        />
+      </div>
+      <h1 className="font-display mt-6 text-4xl text-[var(--accent)] md:text-5xl">
         {course.title}
       </h1>
       <p className="mt-5 text-lg leading-relaxed text-[var(--muted)]">
