@@ -48,13 +48,21 @@ export function HeaderNav({ loggedIn, isTeacher }: Props) {
             </Link>
           )}
           {loggedIn ? (
-            <button
-              type="button"
-              onClick={() => signOut({ callbackUrl: "/" })}
-              className="rounded-full border border-[var(--line)] px-4 py-2 text-[0.8rem] hover:border-[var(--accent)]"
-            >
-              Sair
-            </button>
+            <>
+              <Link
+                href="/minha-conta"
+                className="text-[0.8rem] text-[var(--foreground)]/80 hover:text-[var(--accent)]"
+              >
+                Minha conta
+              </Link>
+              <button
+                type="button"
+                onClick={() => signOut({ callbackUrl: "/" })}
+                className="rounded-full border border-[var(--line)] px-4 py-2 text-[0.8rem] hover:border-[var(--accent)]"
+              >
+                Sair
+              </button>
+            </>
           ) : (
             <>
               <Link
@@ -99,13 +107,18 @@ export function HeaderNav({ loggedIn, isTeacher }: Props) {
               </Link>
             )}
             {loggedIn ? (
-              <button
-                type="button"
-                className="text-left"
-                onClick={() => signOut({ callbackUrl: "/" })}
-              >
-                Sair
-              </button>
+              <>
+                <Link href="/minha-conta" onClick={() => setOpen(false)}>
+                  Minha conta
+                </Link>
+                <button
+                  type="button"
+                  className="text-left"
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                >
+                  Sair
+                </button>
+              </>
             ) : (
               <>
                 <Link href="/login" onClick={() => setOpen(false)}>

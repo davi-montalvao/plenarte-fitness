@@ -8,6 +8,7 @@ type Props = {
   label: string;
   minLength?: number;
   autoComplete?: string;
+  required?: boolean;
   value?: string;
   onChange?: (value: string) => void;
 };
@@ -18,6 +19,7 @@ export function PasswordField({
   label,
   minLength = 6,
   autoComplete,
+  required = true,
   value,
   onChange,
 }: Props) {
@@ -33,8 +35,8 @@ export function PasswordField({
           id={id}
           name={name}
           type={visible ? "text" : "password"}
-          required
-          minLength={minLength}
+          required={required}
+          minLength={required ? minLength : undefined}
           autoComplete={autoComplete}
           value={value}
           onChange={(event) => onChange?.(event.target.value)}

@@ -13,6 +13,7 @@ export async function Footer() {
     { href: "/#sobre", label: "Sobre" },
     ...(loggedIn && !isTeacher ? [{ href: "/minha-area", label: "Minha área" }] : []),
     ...(isTeacher ? [{ href: "/professora", label: "Painel" }] : []),
+    ...(loggedIn ? [{ href: "/minha-conta", label: "Minha conta" }] : []),
     ...(!loggedIn
       ? [
           { href: "/login", label: "Entrar" },
