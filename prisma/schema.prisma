@@ -29,6 +29,7 @@ model User {
   updatedAt    DateTime   @updatedAt
   courses      Course[]
   purchases    Purchase[]
+  progress     LessonProgress[]
   accounts     Account[]
   sessions     Session[]
 }
@@ -91,10 +92,23 @@ model Lesson {
   order       Int      @default(0)
   courseId    String
   course      Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  progress    LessonProgress[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@index([courseId])
+}
+
+model LessonProgress {
+  id        String   @id @default(cuid())
+  userId    String
+  lessonId  String
+  watchedAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lesson    Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, lessonId])
+  @@index([userId])
 }
 
 model Purchase {

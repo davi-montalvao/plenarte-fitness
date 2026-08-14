@@ -1,7 +1,31 @@
 import Link from "next/link";
 import { Logo } from "@/components/logo";
+import { auth } from "@/lib/auth";
 
-export function Footer() {
+export async function Footer() {
+  const session = await auth();
+  const loggedIn = Boolean(session);
+  const isTeacher =
+    session?.user?.role === "TEACHER" || session?.user?.role === "ADMIN";
+
+  const links = [
+    { href: "/cursos", label: "Curso" },
+    { href: "/#sobre", label: "Sobre" },
+    ...(loggedIn && !isTeacher ? [{ href: "/minha-area", label: "Minha área" }] : []),
+    ...(isTeacher ? [{ href: "/professora", label: "Painel" }] : []),
+    ...(!loggedIn
+      ? [
+          { href: "/login", label: "Entrar" },
+          { href: "/cadastro", label: "Criar conta" },
+        ]
+      : []),
+    {
+      href: "https://www.plenarteballet.com.br/",
+      label: "Plenarte Ballet",
+      external: true,
+    },
+  ];
+
   return (
     <footer className="mt-auto border-t border-[var(--line)] bg-[var(--surface)]">
       <div className="shell flex flex-col gap-10 py-14 md:flex-row md:justify-between">
@@ -12,26 +36,23 @@ export function Footer() {
           </p>
         </div>
         <div className="grid grid-cols-2 gap-x-12 gap-y-2 text-sm">
-          <Link href="/cursos" className="hover:text-[var(--accent)]">
-            Curso
-          </Link>
-          <Link href="/cadastro" className="hover:text-[var(--accent)]">
-            Criar conta
-          </Link>
-          <Link href="/login" className="hover:text-[var(--accent)]">
-            Entrar
-          </Link>
-          <Link href="/#sobre" className="hover:text-[var(--accent)]">
-            Sobre
-          </Link>
-          <a
-            href="https://www.plenarteballet.com.br/"
-            target="_blank"
-            rel="noreferrer"
-            className="hover:text-[var(--accent)]"
-          >
-            Plenarte Ballet
-          </a>
+          {links.map((link) =>
+            "external" in link && link.external ? (
+              <a
+                key={link.href}
+                href={link.href}
+                target="_blank"
+                rel="noreferrer"
+                className="hover:text-[var(--accent)]"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link key={link.href} href={link.href} className="hover:text-[var(--accent)]">
+                {link.label}
+              </Link>
+            ),
+          )}
         </div>
       </div>
       <div className="border-t border-[var(--line)] px-4 py-4 text-center text-xs text-[var(--muted)]">

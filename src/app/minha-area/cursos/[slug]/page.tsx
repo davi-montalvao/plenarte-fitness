@@ -2,18 +2,21 @@ import { notFound, redirect } from "next/navigation";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getYoutubeEmbedUrl } from "@/lib/youtube";
+import { ScrollToId } from "./scroll-to-id";
 
 export const dynamic = "force-dynamic";
 
 type Props = {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ aula?: string }>;
 };
 
-export default async function WatchCoursePage({ params }: Props) {
+export default async function WatchCoursePage({ params, searchParams }: Props) {
   const session = await auth();
   if (!session?.user?.id) redirect("/login");
 
   const { slug } = await params;
+  const { aula } = await searchParams;
 
   const course = await prisma.course.findUnique({
     where: { slug },
@@ -40,8 +43,28 @@ export default async function WatchCoursePage({ params }: Props) {
     redirect(`/cursos/${course.slug}`);
   }
 
+  const selected =
+    course.lessons.find((lesson) => lesson.id === aula) ?? course.lessons[0];
+
+  if (selected && !isTeacher) {
+    await prisma.lessonProgress.upsert({
+      where: {
+        userId_lessonId: {
+          userId: session.user.id,
+          lessonId: selected.id,
+        },
+      },
+      update: { watchedAt: new Date() },
+      create: {
+        userId: session.user.id,
+        lessonId: selected.id,
+      },
+    });
+  }
+
   return (
     <div className="mx-auto max-w-3xl px-4 py-14">
+      {selected && <ScrollToId id={`aula-${selected.id}`} />}
       <h1 className="font-display text-4xl text-[var(--accent)]">
         {course.title}
       </h1>
@@ -49,11 +72,17 @@ export default async function WatchCoursePage({ params }: Props) {
       <div className="mt-8 space-y-10">
         {course.lessons.map((lesson, index) => {
           const embed = getYoutubeEmbedUrl(lesson.youtubeUrl);
+          const current = lesson.id === selected?.id;
 
           return (
-            <article key={lesson.id} className="space-y-3">
+            <article key={lesson.id} id={`aula-${lesson.id}`} className="space-y-3">
               <h2 className="font-display text-2xl">
                 {String(index + 1).padStart(2, "0")}. {lesson.title}
+                {current && (
+                  <span className="ml-2 text-sm font-sans font-normal text-[var(--muted)]">
+                    agora
+                  </span>
+                )}
               </h2>
               {lesson.description && (
                 <p className="text-[var(--muted)]">{lesson.description}</p>
