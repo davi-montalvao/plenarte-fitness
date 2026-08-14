@@ -23,9 +23,8 @@ export function LoginForm() {
       redirect: false,
     });
 
-    setLoading(false);
-
     if (result?.error) {
+      setLoading(false);
       setError("Email ou senha inválidos");
       return;
     }
