@@ -20,7 +20,7 @@ export default async function ManageCoursePage({ params }: Props) {
   const { id } = await params;
 
   const course = await prisma.course.findFirst({
-    where: { id, teacherId: session.user.id },
+    where: { id },
     include: { lessons: { orderBy: { order: "asc" } } },
   });
 

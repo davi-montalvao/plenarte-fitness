@@ -71,7 +71,7 @@ export async function POST(request: Request) {
     }
 
     const course = await prisma.course.findFirst({
-      where: { id: parsed.data.courseId, teacherId: session.user.id },
+      where: { id: parsed.data.courseId },
     });
 
     if (!course) {
@@ -111,7 +111,7 @@ export async function PATCH(request: Request) {
   }
 
   const existing = await prisma.lesson.findFirst({
-    where: { id: parsed.data.id, course: { teacherId: session.user.id } },
+    where: { id: parsed.data.id },
   });
 
   if (!existing) {
@@ -140,7 +140,7 @@ export async function DELETE(request: Request) {
   }
 
   const existing = await prisma.lesson.findFirst({
-    where: { id: lessonId, course: { teacherId: session.user.id } },
+    where: { id: lessonId },
   });
 
   if (!existing) {

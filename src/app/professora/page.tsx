@@ -18,7 +18,6 @@ export default async function TeacherPanelPage() {
   }
 
   const course = await prisma.course.findFirst({
-    where: { teacherId: session.user.id },
     orderBy: [{ published: "desc" }, { createdAt: "desc" }],
     include: {
       lessons: { select: { id: true }, orderBy: { order: "asc" } },
