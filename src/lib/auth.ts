@@ -3,6 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
+import { isTeacherEmail } from "@/lib/teacher-emails";
 import type { Role } from "@prisma/client";
 
 declare module "next-auth" {
@@ -57,11 +58,20 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const valid = await compare(parsed.data.password, user.passwordHash);
         if (!valid) return null;
 
+        let role = user.role;
+        if (role !== "TEACHER" && role !== "ADMIN" && isTeacherEmail(user.email)) {
+          const updated = await prisma.user.update({
+            where: { id: user.id },
+            data: { role: "TEACHER" },
+          });
+          role = updated.role;
+        }
+
         return {
           id: user.id,
           name: user.name,
           email: user.email,
-          role: user.role,
+          role,
         };
       },
     }),
