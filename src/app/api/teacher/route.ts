@@ -14,6 +14,12 @@ const courseSchema = z.object({
   published: z.boolean().optional(),
 });
 
+const courseUpdateSchema = courseSchema.extend({
+  id: z.string(),
+  coverUrl: z.string().nullable().optional(),
+  published: z.boolean(),
+});
+
 const lessonSchema = z.object({
   courseId: z.string(),
   title: z.string().min(2),
@@ -101,6 +107,49 @@ export async function PATCH(request: Request) {
   }
 
   const body = await request.json();
+
+  if (body?.type === "course") {
+    const parsed = courseUpdateSchema.safeParse(body.data);
+    if (!parsed.success) {
+      return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
+    }
+
+    const existing = await prisma.course.findFirst({
+      where: { id: parsed.data.id },
+    });
+
+    if (!existing) {
+      return NextResponse.json({ error: "Curso não encontrado" }, { status: 404 });
+    }
+
+    const slugTaken = await prisma.course.findFirst({
+      where: {
+        slug: parsed.data.slug,
+        NOT: { id: parsed.data.id },
+      },
+      select: { id: true },
+    });
+
+    if (slugTaken) {
+      return NextResponse.json({ error: "Slug já em uso" }, { status: 409 });
+    }
+
+    const { id, ...data } = parsed.data;
+    const course = await prisma.course.update({
+      where: { id },
+      data: {
+        title: data.title,
+        slug: data.slug,
+        description: data.description,
+        priceCents: data.priceCents,
+        coverUrl: data.coverUrl ?? null,
+        published: data.published,
+      },
+    });
+
+    return NextResponse.json({ course });
+  }
+
   if (body?.type !== "lesson") {
     return NextResponse.json({ error: "Tipo inválido" }, { status: 400 });
   }
