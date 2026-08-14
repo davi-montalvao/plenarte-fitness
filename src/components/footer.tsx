@@ -56,8 +56,20 @@ export async function Footer() {
           )}
         </div>
       </div>
-      <div className="border-t border-[var(--line)] px-4 py-4 text-center text-xs text-[var(--muted)]">
-        © 2026 Plenarte Fitness. Todos os direitos reservados.
+      <div className="space-y-2 border-t border-[var(--line)] px-4 py-4 text-center text-xs text-[var(--muted)]">
+        <p>© 2026 Plenarte Fitness. Todos os direitos reservados.</p>
+        <p>
+          Criado por{" "}
+          <a
+            href="https://davimontalvao.com.br"
+            target="_blank"
+            rel="noreferrer"
+            className="text-[var(--foreground)] underline-offset-2 hover:text-[var(--accent)] hover:underline"
+          >
+            Davi Montalvão
+          </a>
+        </p>
+        <p>Feito com amor 💜 e persistência 🚀</p>
       </div>
     </footer>
   );
