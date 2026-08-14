@@ -145,7 +145,7 @@ export default function Home() {
       <FadeIn id="sobre" className="shell max-w-5xl py-28 text-center">
         <p className="kicker">Plenarte Fitness</p>
         <h2 className="font-display mt-4 text-3xl leading-snug text-[var(--accent)] md:text-4xl">
-          Do mesmo universo do Plenarte, nasce uma nova forma de mover o corpo:
+          Do mesmo universo da Plenarte, nasce uma nova forma de mover o corpo:
           a força do fitness com a elegância do ballet.
         </h2>
         <p className="mx-auto mt-6 max-w-2xl text-[var(--muted)]">
@@ -297,15 +297,15 @@ export default function Home() {
           </h2>
           <h3 className="font-display mt-8 text-2xl">Fernanda Abreu</h3>
           <p className="mt-2 text-sm text-[var(--muted)]">
-            Diretora, fundadora e responsável pelo Plenarte Ballet.
+            Diretora, fundadora e responsável pela Plenarte Ballet.
           </p>
           <p className="mt-5 leading-relaxed text-[var(--muted)]">
             Bailarina, pedagoga, psicopedagoga e psicomotricista — e mãe da
-            Maitê e do Dani. No Plenarte, Fernanda une rigor técnico à escuta:
+            Maitê e do Dani. Na Plenarte, Fernanda une rigor técnico à escuta:
             cada corpo no seu tempo, com profundidade e expressão.
           </p>
           <p className="mt-4 leading-relaxed text-[var(--muted)]">
-            O Plenarte Fitness nasce dessa mesma visão. Aqui, o ballet encontra
+            A Plenarte Fitness nasce dessa mesma visão. Aqui, o ballet encontra
             o condicionamento para você treinar em casa, com consciência e
             presença.
           </p>
