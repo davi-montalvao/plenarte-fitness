@@ -19,7 +19,7 @@ function RoleBadge({ isTeacher }: { isTeacher: boolean }) {
           : "bg-[var(--accent-soft)] text-[var(--accent)]"
       }`}
     >
-      {isTeacher ? "Professor(a)" : "Aluno(a)"}
+      {isTeacher ? "Professora" : "Aluno(a)"}
     </span>
   );
 }
@@ -53,17 +53,17 @@ export function HeaderNav({ loggedIn, isTeacher }: Props) {
 
       <div className="flex items-center justify-end gap-3">
         <div className="hidden items-center gap-3 md:flex">
-          {isTeacher && (
-            <Link
-              href="/professora"
-              className="text-[0.8rem] text-[var(--foreground)]/80 hover:text-[var(--accent)]"
-            >
-              Painel
-            </Link>
-          )}
           {loggedIn ? (
             <>
               <RoleBadge isTeacher={isTeacher} />
+              {isTeacher && (
+                <Link
+                  href="/professora"
+                  className="text-[0.8rem] text-[var(--foreground)]/80 hover:text-[var(--accent)]"
+                >
+                  Painel
+                </Link>
+              )}
               <Link
                 href="/minha-conta"
                 className="text-[0.8rem] text-[var(--foreground)]/80 hover:text-[var(--accent)]"
