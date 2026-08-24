@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { hash } from "bcryptjs";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
+import { getNameError } from "@/lib/name";
 import { getPasswordError } from "@/lib/password";
 import { resolveRole } from "@/lib/teacher-emails";
 
@@ -18,6 +19,12 @@ export async function POST(request: Request) {
 
     if (!parsed.success) {
       return NextResponse.json({ error: "Dados inválidos" }, { status: 400 });
+    }
+
+    const name = parsed.data.name.trim();
+    const nameError = getNameError(name);
+    if (nameError) {
+      return NextResponse.json({ error: nameError }, { status: 400 });
     }
 
     const passwordError = getPasswordError(parsed.data.password);
@@ -38,7 +45,7 @@ export async function POST(request: Request) {
 
     await prisma.user.create({
       data: {
-        name: parsed.data.name,
+        name,
         email: parsed.data.email,
         passwordHash,
         role,

@@ -5,6 +5,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { PasswordField } from "@/components/password-field";
+import { getNameError, NAME_HINT } from "@/lib/name";
 import { getPasswordError, PASSWORD_HINT } from "@/lib/password";
 
 function isValidEmail(email: string) {
@@ -20,11 +21,12 @@ export function RegisterForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const nameError = getNameError(name);
   const passwordError = getPasswordError(password);
   const passwordsMatch =
     confirmPassword.length > 0 && password === confirmPassword;
   const canSubmit =
-    name.trim().length >= 2 &&
+    !nameError &&
     isValidEmail(email.trim()) &&
     !passwordError &&
     passwordsMatch;
@@ -74,20 +76,25 @@ export function RegisterForm() {
 
   return (
     <form onSubmit={onSubmit} className="mx-auto w-full max-w-md space-y-4">
-      <div>
+      <div className="space-y-1">
         <label className="mb-1 block text-sm" htmlFor="name">
-          Nome
+          Nome completo
         </label>
         <input
           id="name"
           name="name"
           type="text"
           required
-          minLength={2}
+          autoComplete="name"
+          placeholder="Nome e sobrenome"
           value={name}
           onChange={(event) => setName(event.target.value)}
           className="field"
         />
+        <p className="text-xs text-[var(--muted)]">{NAME_HINT}</p>
+        {name.trim().length > 0 && nameError && (
+          <p className="text-sm text-red-700">{nameError}</p>
+        )}
       </div>
       <div>
         <label className="mb-1 block text-sm" htmlFor="email">

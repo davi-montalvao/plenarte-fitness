@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { PasswordField } from "@/components/password-field";
+import { getNameError, NAME_HINT } from "@/lib/name";
 import { getPasswordError, PASSWORD_HINT } from "@/lib/password";
 
 type Props = {
@@ -16,6 +17,7 @@ export function AccountForm({ name: initialName, email, isTeacher }: Props) {
   const router = useRouter();
   const { update } = useSession();
   const [name, setName] = useState(initialName);
+  const [savedName, setSavedName] = useState(initialName);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -32,6 +34,8 @@ export function AccountForm({ name: initialName, email, isTeacher }: Props) {
     (currentPassword.length > 0 ||
       newPassword.length > 0 ||
       confirmPassword.length > 0);
+  const nameChanged = name.trim() !== savedName.trim();
+  const nameError = getNameError(name);
   const passwordError =
     newPassword.length > 0 ? getPasswordError(newPassword) : null;
   const passwordsMatch =
@@ -43,7 +47,11 @@ export function AccountForm({ name: initialName, email, isTeacher }: Props) {
       Boolean(confirmPassword) &&
       !passwordError &&
       passwordsMatch);
-  const canSubmit = name.trim().length >= 2 && passwordOk && !loading;
+  const canSubmit =
+    (nameChanged || changingPassword) &&
+    !nameError &&
+    passwordOk &&
+    !loading;
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -79,6 +87,7 @@ export function AccountForm({ name: initialName, email, isTeacher }: Props) {
     setCurrentPassword("");
     setNewPassword("");
     setConfirmPassword("");
+    setSavedName(data.user.name);
     await update({ name: data.user.name });
 
     if (didChangePassword) {
@@ -110,19 +119,24 @@ export function AccountForm({ name: initialName, email, isTeacher }: Props) {
       )}
 
       <form onSubmit={onSubmit} className="card space-y-4 p-4 sm:p-6">
-        <div>
+        <div className="space-y-1">
           <label className="mb-1 block text-sm" htmlFor="name">
-            Nome
+            Nome completo
           </label>
           <input
             id="name"
             name="name"
             required
-            minLength={2}
+            autoComplete="name"
+            placeholder="Nome e sobrenome"
             value={name}
             onChange={(event) => setName(event.target.value)}
             className="field"
           />
+          <p className="text-xs text-[var(--muted)]">{NAME_HINT}</p>
+          {name.trim().length > 0 && nameError && (
+            <p className="text-sm text-red-700">{nameError}</p>
+          )}
         </div>
 
         <div>

@@ -10,6 +10,20 @@ type Props = {
   isTeacher: boolean;
 };
 
+function RoleBadge({ isTeacher }: { isTeacher: boolean }) {
+  return (
+    <span
+      className={`rounded-full px-2.5 py-1 text-[0.65rem] font-medium tracking-wide uppercase ${
+        isTeacher
+          ? "bg-[var(--accent)] text-[var(--accent-fg)]"
+          : "bg-[var(--accent-soft)] text-[var(--accent)]"
+      }`}
+    >
+      {isTeacher ? "Professor(a)" : "Aluno(a)"}
+    </span>
+  );
+}
+
 export function HeaderNav({ loggedIn, isTeacher }: Props) {
   const [open, setOpen] = useState(false);
 
@@ -49,6 +63,7 @@ export function HeaderNav({ loggedIn, isTeacher }: Props) {
           )}
           {loggedIn ? (
             <>
+              <RoleBadge isTeacher={isTeacher} />
               <Link
                 href="/minha-conta"
                 className="text-[0.8rem] text-[var(--foreground)]/80 hover:text-[var(--accent)]"
@@ -96,6 +111,11 @@ export function HeaderNav({ loggedIn, isTeacher }: Props) {
       {open && (
         <div className="absolute inset-x-0 top-full border-b border-[var(--line)] bg-[var(--surface)] px-4 py-4 md:hidden">
           <div className="flex flex-col gap-4 text-sm">
+            {loggedIn && (
+              <div className="pb-1">
+                <RoleBadge isTeacher={isTeacher} />
+              </div>
+            )}
             {sections.map((link) => (
               <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>
                 {link.label}

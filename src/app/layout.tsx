@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Outfit } from "next/font/google";
+import { Libre_Baskerville, Outfit } from "next/font/google";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Providers } from "@/components/providers";
 import { BackToTop } from "@/components/back-to-top";
 import "./globals.css";
 
-const display = Playfair_Display({
+const display = Libre_Baskerville({
   variable: "--font-display",
   subsets: ["latin"],
+  weight: ["400", "700"],
 });
 
 const body = Outfit({

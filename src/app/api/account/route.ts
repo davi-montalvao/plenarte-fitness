@@ -3,6 +3,7 @@ import { compare, hash } from "bcryptjs";
 import { z } from "zod";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { getNameError } from "@/lib/name";
 import { getPasswordError } from "@/lib/password";
 
 const schema = z.object({
@@ -26,6 +27,11 @@ export async function PATCH(request: Request) {
     }
 
     const name = parsed.data.name.trim();
+    const nameError = getNameError(name);
+    if (nameError) {
+      return NextResponse.json({ error: nameError }, { status: 400 });
+    }
+
     const currentPassword = parsed.data.currentPassword ?? "";
     const newPassword = parsed.data.newPassword ?? "";
     const changingPassword = Boolean(currentPassword || newPassword);
