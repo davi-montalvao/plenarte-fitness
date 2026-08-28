@@ -131,7 +131,7 @@ export default function Home() {
         </div>
       </FadeIn>
 
-      <div className="overflow-hidden bg-[var(--accent)] py-3 text-white">
+      <div className="overflow-hidden bg-[var(--accent-soft)] py-3 text-[var(--accent)]">
         <div className="marquee-track flex w-max gap-8 text-[0.7rem] tracking-[0.28em] uppercase">
           {[...ticker, ...ticker, ...ticker, ...ticker].map((item, index) => (
             <span key={`${item}-${index}`} className="flex items-center gap-8">
@@ -239,12 +239,12 @@ export default function Home() {
       </FadeIn>
 
       <FadeIn className="shell py-12">
-        <div className="relative overflow-hidden rounded-[2rem] bg-[var(--accent)] px-8 py-28 text-white md:px-20">
-          <p className="kicker text-white/70">Experiência Plenarte Fitness</p>
-          <h2 className="font-display mt-4 max-w-lg text-4xl md:text-5xl">
+        <div className="relative overflow-hidden rounded-[2rem] border border-[var(--line)] bg-[var(--accent-soft)] px-8 py-28 md:px-20">
+          <p className="kicker">Experiência Plenarte Fitness</p>
+          <h2 className="font-display mt-4 max-w-lg text-4xl text-[var(--accent)] md:text-5xl">
             Treine com a leveza do ballet.
           </h2>
-          <p className="mt-8 max-w-2xl font-display text-lg text-white/90">
+          <p className="mt-8 max-w-2xl font-display text-lg text-[var(--muted)]">
             Movimento · Música · Força · Elegância · Corpo · Confiança ·
             Autoestima
           </p>
@@ -313,24 +313,21 @@ export default function Home() {
       </FadeIn>
 
       <FadeIn className="shell py-20">
-        <div className="rounded-[2rem] bg-[var(--accent)] px-8 py-16 text-center text-white md:px-16">
-          <h2 className="font-display text-3xl md:text-5xl">
+        <div className="rounded-[2rem] border border-[var(--line)] bg-[var(--accent-soft)] px-8 py-16 text-center md:px-16">
+          <h2 className="font-display text-3xl text-[var(--accent)] md:text-5xl">
             Seu próximo movimento começa aqui.
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-white/80">
+          <p className="mx-auto mt-4 max-w-lg text-[var(--muted)]">
             Escolha o curso, assista no seu ritmo e treine com a força do
             fitness e a elegância do ballet.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Link
-              href="/cursos"
-              className="btn bg-white text-[var(--foreground)]"
-            >
+            <Link href="/cursos" className="btn btn-primary">
               Ver o curso →
             </Link>
             <Link
               href="/cadastro"
-              className="btn border border-white/40 text-white"
+              className="btn rounded-full border border-[var(--line)] bg-[var(--surface)] text-[var(--foreground)]"
             >
               Criar conta
             </Link>
